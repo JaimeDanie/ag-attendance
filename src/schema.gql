@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type StudentDtoResponse {
+  id: Float!
+  firstName: String!
+  secondName: String!
+  lastName: String!
+  lastNameTwo: String!
+  documento: String!
+  photoUrl: String!
+}
+
+type Query {
+  hellowWorldQuery: String!
+}
+
+type Mutation {
+  createStudent(student: StudentDto!): StudentDtoResponse!
+}
+
+input StudentDto {
+  firstName: String!
+  secondName: String!
+  lastName: String!
+  lastNameTwo: String!
+  documento: String!
+  photoUrl: String!
+}
