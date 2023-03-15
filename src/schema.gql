@@ -2,7 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type StudentDtoResponse {
+type TeacherResponse {
+  id: Float!
+  document: String!
+  firstName: String!
+  secondName: String!
+  lastName: String!
+  lastNameTwo: String!
+  birthdate: String!
+  idUser: String!
+}
+
+type StudentResponse {
   id: Float!
   firstName: String!
   secondName: String!
@@ -10,21 +21,73 @@ type StudentDtoResponse {
   lastNameTwo: String!
   documento: String!
   photoUrl: String!
+  status: String!
+  birthdate: String!
+}
+
+type StudentAttendance {
+  id: Float!
+  document: String!
+  firstName: String!
+  secondName: String!
+  lastName: String!
+  lastNameTwo: String!
+  photoUrl: String!
+  birthdate: String!
+}
+
+type AttendanceResponse {
+  id: Float!
+  dateAttendance: String!
+  idTeacher: Float!
+  status: String!
+  student: StudentAttendance!
+  created_at: String!
+  updated_at: String!
 }
 
 type Query {
-  hellowWorldQuery: String!
+  getStudents: [StudentResponse!]!
+  getStudentById(id: Float!): StudentResponse!
+  getStudentsByDate(date: String!): [StudentResponse!]!
+  getAllAttendance: [AttendanceResponse!]!
+  getAttendanceByDate(date: String!): [AttendanceResponse!]!
+  getAttendanceByDateAndStudent(date: String!, idStudent: Float!): AttendanceResponse!
+  getTeachers: [TeacherResponse!]!
+  getTeacherById(id: Float!): TeacherResponse!
 }
 
 type Mutation {
-  createStudent(student: StudentDto!): StudentDtoResponse!
+  createStudent(student: StudentCreate!): StudentResponse!
+  updateStudent(student: StudentCreate!, id: Float!): StudentResponse!
+  deleteStudent(id: Float!): String!
+  checkAttendance(attendance: AttendanceCreate!, id: Float!): AttendanceResponse!
+  createTeacher(teacher: TeacherCreate!): TeacherResponse!
+  updateTeacher(teacher: TeacherCreate!, id: Float!): TeacherResponse!
+  deleteTeacher(id: Float!): String!
 }
 
-input StudentDto {
+input StudentCreate {
   firstName: String!
   secondName: String!
   lastName: String!
   lastNameTwo: String!
   documento: String!
   photoUrl: String!
+  birthdate: String!
+}
+
+input AttendanceCreate {
+  dateAttendance: String!
+  idTeacher: Float!
+}
+
+input TeacherCreate {
+  document: String!
+  firstName: String!
+  secondName: String!
+  lastName: String!
+  lastNameTwo: String!
+  birthdate: String!
+  idUser: String!
 }
