@@ -1,3 +1,4 @@
+import { TeacherDTO } from './../dto/Teacher.dto';
 import { AttendanceDTO, AttendanceListDTO } from './../dto/Attendance.dto';
 import { AttendanceCreate, AttendanceResponse } from './../TypeDefinitions/Attendance.definition';
 import { ENDPOINT } from './../constants/ms/microservices';
@@ -39,6 +40,12 @@ export class AttendanceService {
 
     async saveAttendance(idStudent:number,attendance:AttendanceCreate):Promise<AttendanceResponse>{
         try {
+    
+            let isValidTeacher= await lastValueFrom(this.httpService.get(`${ENDPOINT.ms_teacher}/${attendance.idTeacher}`));
+            const respTeacher:TeacherDTO=isValidTeacher.data
+            if(!respTeacher.success){
+                throw new GraphQLError("Teacher no exist",{extensions:{code:401}})
+            }
             let response= await lastValueFrom(this.httpService.post(`${ENDPOINT.ms_attendance}/${idStudent}`,attendance));
             const respStudent:AttendanceDTO=response.data;       
             if(respStudent.success){

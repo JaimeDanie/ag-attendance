@@ -22,9 +22,9 @@ export class TeacherService {
 
      async getTeacherById(id:number):Promise<TeacherResponse>{
         let response= await lastValueFrom(this.httpService.get(`${ENDPOINT.ms_teacher}/${id}`));
-        const respStudent:TeacherDTO=response.data
-        if(respStudent.success){
-         return respStudent.teacher;
+        const respTeacher:TeacherDTO=response.data
+        if(respTeacher.success){
+         return respTeacher.teacher;
         }
         const message:string=response.data?.teacher || "teacher no exist"
         throw new GraphQLError(message,{extensions:{code:404}})
@@ -32,6 +32,7 @@ export class TeacherService {
  
      async saveTeacher(teacher:TeacherCreate):Promise<TeacherResponse>{
          try {
+            
              let response= await lastValueFrom(this.httpService.post(ENDPOINT.ms_teacher,teacher));
              const respTeacher:TeacherDTO=response.data;       
              if(respTeacher.success){
